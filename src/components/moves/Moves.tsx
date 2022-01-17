@@ -4,47 +4,72 @@ import { HistoryItem } from '../../types/history-item';
 
 
 type MovesState = {
-  currentMove: number;
+	currentMove: number;
+	sortOrder: 'asc' | 'desc';
 }
 
 type MovesProps = {
-  history: HistoryItem[];
-  jumpTo: (i: number) => void
+	history: HistoryItem[];
+	jumpTo: (i: number) => void
 }
 
 class Moves extends React.Component<MovesProps, MovesState> {
-  state: MovesState = {
-    currentMove: 0
-  };
+	state: MovesState = {
+		currentMove: 0,
+		sortOrder: 'asc'
+	};
 
-  jumpToMoveAndMakeUpdateCurrentMove(index: number): void {
-    this.props.jumpTo(index);
-    this.setState({currentMove: index});
-  }
+	jumpToMoveAndMakeUpdateCurrentMove(index: number): void {
+		this.props.jumpTo(index);
+		this.setState({currentMove: index});
+	}
 
-  isCurrentMove(index: number): boolean {
-    return this.state.currentMove === index;
-  }
+	isCurrentMove(index: number): boolean {
+		return this.state.currentMove === index;
+	}
 
-  render() {
-    const moves = this.props.history.map((step, index) => {
-      const position: string = step.position?.join(', ') || '';
-      const desc = index ?
-          `Go to move #${index} [${position}]` :
-          'Go to game start';
-      return (
-          <li key={index}>
-            <button className={this.isCurrentMove(index) ? 'current-move' : ''}
-                    onClick={() => this.jumpToMoveAndMakeUpdateCurrentMove(index)}>
-              {desc}
-            </button>
-          </li>
-      )
-    });
-    return (
-        <ol>{moves}</ol>
-    );
-  }
+	onSort(): void {
+		const newSortOrder = this.state.sortOrder === 'asc' ? 'desc' : 'asc';
+		this.setState({sortOrder: newSortOrder});
+	}
+
+	sortHistoryItems(a: { step: HistoryItem, index: number }, b: { step: HistoryItem, index: number }): number {
+		const isReversed = (this.state.sortOrder === 'asc') ? 1 : -1;
+		return isReversed * (a.index - b.index)
+	}
+
+	getSortButtonLabel(): string {
+		return this.state.sortOrder === 'asc' ? '↓' : '↑';
+	}
+
+	render() {
+		const moves = this.props.history
+			.map((step, index) => ({step: step, index: index}))
+			.sort(this.sortHistoryItems.bind(this))
+			.map((sortedStep) => {
+				const position: string = sortedStep.step.position?.join(', ') || '';
+				const desc = sortedStep.index ?
+					`Go to move #${sortedStep.index} [${position}]` :
+					'Go to game start';
+				return (
+					<li key={sortedStep.index}>
+						<button className={this.isCurrentMove(sortedStep.index) ? 'current-move' : ''}
+								onClick={() => this.jumpToMoveAndMakeUpdateCurrentMove(sortedStep.index)}>
+							{desc}
+						</button>
+					</li>
+				)
+			});
+		return (
+			<div className="moves-wrapper">
+				<button onClick={() => this.onSort()}
+						className="sort-button">
+					Sort {this.getSortButtonLabel()}
+				</button>
+				<ol>{moves}</ol>
+			</div>
+		);
+	}
 }
 
 export default Moves;
