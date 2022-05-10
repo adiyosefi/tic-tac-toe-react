@@ -8,11 +8,9 @@ type SquareProps = {
   onClick: () => void
 };
 
-const Square = (props: SquareProps) => (
+export const Square: React.FC<SquareProps> = ({value, onClick}) => (
     <button className="square"
-            onClick={props.onClick}>
-      {props.value}
+            onClick={onClick}>
+      {value}
     </button>
 );
-
-export default Square;

@@ -1,5 +1,5 @@
 import reportWebVitals from './reportWebVitals';
-import App from './App';
+import { App } from './App';
 import ReactDOM from 'react-dom';
 
 

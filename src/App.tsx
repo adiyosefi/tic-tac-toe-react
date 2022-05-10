@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-import Game from './components/game/Game';
+import { Game } from './components/game/Game';
 
-const App = () => <Game/>;
+export const App: React.FC = () => <Game/>;
 
-export default App;
