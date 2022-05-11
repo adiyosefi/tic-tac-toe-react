@@ -1,0 +1,64 @@
+@import "src/styles/colors";
+
+$extra-large: 50px;
+
+@mixin center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-wrapper {
+    @include center;
+    flex-direction: column;
+
+    h1 {
+        margin-bottom: 70px;
+        $title-text: 'Tic Tac Toe';
+        position: relative;
+        $stroke-width: $extra-large * 0.05;
+        font-size: $extra-large;
+        color: lighten($purple, 25%);
+        -webkit-text-stroke-width: $stroke-width;
+        -webkit-text-stroke-color: lighten($purple, 5%);
+        @include center;
+        text-shadow: 0 0 40px lighten($purple, 5%),
+        0 0 40px lighten($purple, 5%),
+        0 0 40px lighten($purple, 5%);
+        &:after {
+            content: $title-text;
+            z-index: -1;
+            position: absolute;
+            color: transparent;
+            -webkit-text-stroke-width: $stroke-width;
+            -webkit-text-stroke-color: darken($purple, 40%);
+            top: -5%;
+            left: -0.5%;
+
+        }
+    }
+
+    .game {
+        display: flex;
+        flex-direction: column;
+
+        &-info {
+            margin-top: 40px;
+
+            .game-status {
+                margin-bottom: 10px;
+                text-align: center;
+                font-size: 20px;
+
+                .player-x {
+                    color: $player-x;
+                }
+
+                .player-o {
+                    color: $player-o;
+                }
+            }
+        }
+    }
+}
+

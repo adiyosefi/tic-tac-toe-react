@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Moves.css';
+import './Moves.scss';
 import { HistoryItem } from '../../types/history-item';
 
 

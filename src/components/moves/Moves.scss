@@ -1,0 +1,41 @@
+@import "src/styles/colors";
+
+.moves-wrapper {
+    padding-top: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    button {
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: transparent;
+        border: 1px solid $text-secondary;
+        color: $text-secondary;
+
+        &:hover {
+            background-color: $text-secondary;
+            color: $background;
+        }
+    }
+
+    .sort-button {
+    }
+
+    ol {
+        padding-left: 20px;
+        margin-bottom: 0;
+        text-align: left;
+
+        li {
+            margin-bottom: 5px;
+
+            button.current-move {
+                border: 2px solid $purple;
+            }
+        }
+    }
+}

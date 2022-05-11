@@ -1,5 +1,5 @@
 import React from 'react';
-import './Board.css';
+import './Board.scss';
 import { SquareValue } from '../../types/square-value';
 import { Square } from '../square/Square';
 
@@ -12,13 +12,14 @@ type BoardProps = {
 export const Board: React.FC<BoardProps> = ({squares, onClick}) => {
 	const renderSquare = (i: number, position: [number, number]) => {
 		return <Square key={i}
+					   id={i}
 					   value={squares[i]}
 					   onClick={() => onClick(i, position)}/>;
 	}
 
 	const rowCount = 3, colCount = 3;
 	return (
-		<div>
+		<div className="board">
 			{[...new Array(rowCount)].map((x, rowIndex) => {
 				return (
 					<div className="board-row" key={rowIndex}>

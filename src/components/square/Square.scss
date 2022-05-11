@@ -1,0 +1,45 @@
+@import "src/styles/colors";
+
+.square {
+    background-color: $background;
+    border: 1px solid $main-text;
+    color: $main-text;
+    float: left;
+    font-size: 74px;
+    font-weight: bold;
+    line-height: 84px;
+    height: 84px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    width: 84px;
+
+    &:focus {
+        outline: none;
+    }
+
+    &-0, &-1, &-2 {
+        border-top: none;
+    }
+
+    &-0, &-3, &-6 {
+        border-left: none;
+    }
+
+    &-6, &-7, &-8 {
+        border-bottom: none;
+    }
+
+    &-2, &-5, &-8 {
+        border-right: none;
+    }
+
+    &.player-x {
+        color: $player-x;
+    }
+
+    &.player-o {
+        color: $player-o;
+    }
+}
